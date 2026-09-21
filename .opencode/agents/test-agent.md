@@ -22,5 +22,5 @@ mode: subagent
 ## Procedure
 Применяй методику тест-дизайна согласно встроенному skill `test-design`.
 
-## Output Structure: Test Model Artifact
+## Output:
 1. Результат должен быть записан в файл `/artifacts/test-model.md`.

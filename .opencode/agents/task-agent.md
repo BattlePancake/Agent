@@ -21,5 +21,5 @@ mode: subagent
 ## Procedure & Decomposition Patterns
 Применяй методику проектирования согласно встроенному skill `task-design`.
 
-## Output Structure: Jira Tasks Artifact
+## Output:
 1. Результат должен быть записан в файл `/artifacts/jira-tasks.md`.

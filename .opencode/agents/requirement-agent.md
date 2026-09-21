@@ -38,5 +38,5 @@ mode: subagent
 ## Procedure & Rules
 Применяй методику ревью согласно встроенному skill `requirement-review`.
 
-## Output Structure: Requirement Review Artifact
+## Output:
 * Результат должен быть записан в файл `/artifacts/requirement-review.md`.
