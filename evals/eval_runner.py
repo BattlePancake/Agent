@@ -123,14 +123,14 @@ for eval_case in eval_cases:
 
 
 # =============================================================
-# ЗАПУСК QA AGENT
+# ЗАПУСК QA ORCHESTRATOR
 # =============================================================
 
 for page_id, page_eval_cases in cases_by_page.items():
 
     print()
     print("=" * 80)
-    print("ЗАПУСК QA AGENT")
+    print("ЗАПУСК QA ORCHESTRATOR")
     print("=" * 80)
 
     print()
@@ -146,7 +146,7 @@ for page_id, page_eval_cases in cases_by_page.items():
 
 
     # =========================================================
-    # PROMPT ДЛЯ QA AGENT
+    # PROMPT ДЛЯ QA ORCHESTRATOR
     # =========================================================
 
     # Runner передаёт агенту только исходную задачу.
@@ -154,11 +154,7 @@ for page_id, page_eval_cases in cases_by_page.items():
     # Expected Properties и Forbidden Behavior
     # агенту не передаются.
 
-    prompt = (
-        f"Получи требования из Confluence "
-        f"со страницы pageId={page_id} "
-        f"и выполни их анализ."
-    )
+    prompt = input("Укажите промпт: ").strip()
 
 
     # =========================================================
@@ -187,7 +183,7 @@ for page_id, page_eval_cases in cases_by_page.items():
     text_parts = []
 
 
-    print("QA Agent запущен...")
+    print("QA ORCHESTRATOR запущен...")
 
 
     # =========================================================
@@ -248,7 +244,7 @@ for page_id, page_eval_cases in cases_by_page.items():
 
 
     # =========================================================
-    # ЗАВЕРШЕНИЕ QA AGENT
+    # ЗАВЕРШЕНИЕ QA ORCHESTRATOR
     # =========================================================
 
     return_code = process.wait()
@@ -262,19 +258,19 @@ for page_id, page_eval_cases in cases_by_page.items():
     print()
 
     print(
-        "QA AGENT RETURN CODE:",
+        "QA ORCHESTRATOR RETURN CODE:",
         return_code
     )
 
 
     # =========================================================
-    # ОБРАБОТКА ОШИБКИ QA AGENT
+    # ОБРАБОТКА ОШИБКИ QA ORCHESTRATOR
     # =========================================================
 
     if return_code != 0:
 
         print(
-            "QA Agent завершился с ошибкой."
+            "QA ORCHESTRATOR завершился с ошибкой."
         )
 
 
@@ -315,7 +311,7 @@ for page_id, page_eval_cases in cases_by_page.items():
     if not agent_response:
 
         print(
-            "QA Agent не вернул "
+            "QA ORCHESTRATOR не вернул "
             "текстовый ответ."
         )
 
@@ -338,12 +334,12 @@ for page_id, page_eval_cases in cases_by_page.items():
 
 
     # =========================================================
-    # ВЫВОД ОТВЕТА QA AGENT
+    # ВЫВОД ОТВЕТА QA ORCHESTRATOR
     # =========================================================
 
     print()
     print("=" * 80)
-    print("ОТВЕТ QA AGENT")
+    print("ОТВЕТ QA ORCHESTRATOR")
     print("=" * 80)
 
     print(agent_response)
