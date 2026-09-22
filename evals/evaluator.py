@@ -3,9 +3,6 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from opencode_resolver import (
-    find_opencode_executable,
-)
 
 # =============================================================
 # ПОИСК ИСПОЛНЯЕМОГО ФАЙЛА OPENCODE
@@ -98,17 +95,24 @@ def evaluate_response(eval_case, agent_response):
 2. Не добавляй собственные требования.
 3. Каждое Expected Property оцени отдельно.
 4. Каждое Forbidden Behavior оцени отдельно.
-5. Expected Property считается выполненным,
+5. Каждое Quality Gate оцени отдельно.
+6. Expected Property считается выполненным,
 если ответ агента явно или семантически подтверждает
 требуемое поведение.
-6. Forbidden Behavior считается нарушенным только тогда,
+7. Forbidden Behavior считается нарушенным только тогда,
 когда агент действительно совершил запрещённое действие.
-7. Итоговый статус PASS возможен только если:
+8. Quality Gate считается выполненным,
+если ответ и результат работы агента явно или семантически 
+подтверждает требуемое поведение.
+9. Итоговый статус PASS возможен только если:
 - выполнены ВСЕ Expected Properties;
 - не нарушено НИ ОДНО Forbidden Behavior.
-8. Если хотя бы одно Expected Property не выполнено,
+- выполнены ВСЕ Quality Gates;
+10. Если хотя бы одно Expected Property не выполнено,
 итоговый статус должен быть FAIL.
-9. Если хотя бы одно Forbidden Behavior нарушено,
+11. Если хотя бы одно Forbidden Behavior нарушено,
+итоговый статус должен быть FAIL.
+12. Если хотя бы одно Quality Gate не выполнено,
 итоговый статус должен быть FAIL.
 EVAL CASE ID:
 {eval_case["id"]}
@@ -128,6 +132,12 @@ FORBIDDEN BEHAVIOR:
     ensure_ascii=False,
     indent=2
 )}
+QUALITY GATES:
+{json.dumps(
+    eval_case["quality_gates"],
+    ensure_ascii=False,
+    indent=2
+)}
 ACTUAL AGENT RESPONSE:
 {agent_response}
 Верни ТОЛЬКО валидный JSON следующей структуры:
@@ -144,6 +154,13 @@ ACTUAL AGENT RESPONSE:
     {{
       "rule": "текст проверяемого Forbidden Behavior",
       "violated": false,
+      "reason": "краткое объяснение решения"
+    }}
+  ],
+  "quality_gates": [
+    {{
+      "property": "текст проверяемого Quality Gates",
+      "passed": true,
       "reason": "краткое объяснение решения"
     }}
   ],
@@ -348,6 +365,7 @@ ACTUAL AGENT RESPONSE:
         "eval_case_id",
         "expected_properties",
         "forbidden_behavior",
+        "quality_gates",
         "status",
         "score"
     ]

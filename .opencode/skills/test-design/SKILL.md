@@ -63,7 +63,7 @@ Skill занимается исключительно проектировани
 * **Behavior:** `Positive` / `Negative` / `Boundary` / `Risk-based`.
 * **Automation Status:** `Manual`.
 * **Risk Reference:** Описание риска (только для сценариев типа *Risk-based*).
-* **Status / Blockers:** Оставь отметку `BLOCKED / REQUIRES_HUMAN_DECISION` и укажи `Open Question`, если сценарий зависит от нерешенной неоднозначности в требованиях.
+* **Status / Blockers:** Оставь отметку `BLOCKED` и укажи `Open Question`, если сценарий зависит от нерешенной неоднозначности в требованиях.
 
 ## Artifact Contract
 * **Producer:** Skill test-design.

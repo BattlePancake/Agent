@@ -53,6 +53,72 @@ dataset_path = (
     / "golden_dataset.json"
 )
 
+artifacts_dir = (
+    project_path
+    / "artifacts"
+)
+
+artifacts_old_dir = (
+    project_path
+    / "artifacts-old"
+)
+
+
+# =============================================================
+# АРХИВАЦИЯ АРТЕФАКТОВ
+# =============================================================
+
+def archive_artifacts(
+    artifacts_dir: Path,
+    artifacts_old_dir: Path
+) -> None:
+
+    if not artifacts_dir.is_dir():
+        return
+
+
+    artifacts_old_dir.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    for artifact_path in sorted(
+        artifacts_dir.iterdir()
+    ):
+
+        if not artifact_path.is_file():
+            continue
+
+        archive_path = (
+            artifacts_old_dir
+            / artifact_path.name
+        )
+
+        if archive_path.exists():
+
+            stem = artifact_path.stem
+
+            suffix = artifact_path.suffix
+
+            index = 1
+
+            while (
+                artifacts_old_dir
+                / f"{stem}-{index}{suffix}"
+            ).exists():
+
+                index += 1
+
+            archive_path = (
+                artifacts_old_dir
+                / f"{stem}-{index}{suffix}"
+            )
+
+        shutil.move(
+            str(artifact_path),
+            str(archive_path)
+        )
+
 
 # =============================================================
 # QUALITY GATE THRESHOLDS
@@ -154,7 +220,11 @@ for page_id, page_eval_cases in cases_by_page.items():
     # Expected Properties и Forbidden Behavior
     # агенту не передаются.
 
-    prompt = input("Укажите промпт: ").strip()
+    prompt = (
+        f"Получи требования из Confluence "
+        f"со страницы pageId={page_id} "
+        f"и выполни их анализ."
+    )
 
 
     # =========================================================
@@ -249,6 +319,19 @@ for page_id, page_eval_cases in cases_by_page.items():
 
     return_code = process.wait()
 
+
+    # =========================================================
+    # АРХИВАЦИЯ АРТЕФАКТОВ ПРОШЛОГО ПРОГОНА
+    # =========================================================
+
+    # После завершения работы агента переносим созданные
+    # артефакты из /artifacts/ в /artifacts-old/,
+    # чтобы не перезаписывать и не удалять результат предыдущих прогонов.
+
+    archive_artifacts(
+        artifacts_dir,
+        artifacts_old_dir
+    )
 
     agent_response = "\n".join(
         text_parts
