@@ -221,9 +221,8 @@ for page_id, page_eval_cases in cases_by_page.items():
     # агенту не передаются.
 
     prompt = (
-        f"Получи требования из Confluence "
-        f"со страницы pageId={page_id} "
-        f"и выполни их анализ."
+        f"Получи требования из Confluence со страницы pageId={page_id} и выполни их анализ."
+        f"Создай таски в Jira и тестовую модель в Qase."
     )
 
 
