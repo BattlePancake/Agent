@@ -1,4 +1,5 @@
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -6,12 +7,44 @@ from opencode_resolver import (
     find_opencode_executable,
 )
 
+# =============================================================
+# ПОИСК ИСПОЛНЯЕМОГО ФАЙЛА OPENCODE
+# =============================================================
+
+def find_opencode_executable() -> str:
+    exe = shutil.which("opencode.exe")
+    if exe:
+        return exe
+
+    npm_opencode = (
+        Path.home()
+        / "AppData"
+        / "Roaming"
+        / "npm"
+        / "node_modules"
+        / "opencode-ai"
+        / "bin"
+        / "opencode.exe"
+    )
+
+    if npm_opencode.is_file():
+        return str(npm_opencode)
+
+    shim = shutil.which("opencode")
+    if shim:
+        return shim
+
+    raise FileNotFoundError(
+        "Не удалось найти исполняемый файл opencode. "
+        "Убедитесь, что opencode установлен и доступен из PATH."
+    )
+
 
 # =============================================================
 # PATHS
 # =============================================================
 
-# Корень проекта QAI-05_adv1
+# Корень проекта
 project_path = Path(__file__).resolve().parent.parent
 
 opencode_executable = find_opencode_executable()

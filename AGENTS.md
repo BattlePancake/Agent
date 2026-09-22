@@ -64,5 +64,5 @@
 * Не выбирай бизнес-вариант самостоятельно.
 
 ### 7. Допустимые итоговые статусы
-* SUCCESS, PARTIAL, FAILED, REQUIRES_HUMAN_DECISION, BLOCKED.
+* SUCCESS, PARTIAL, FAILED, REQUIRES_HUMAN_DECISION.
 * Не используй SUCCESS, если хотя бы один обязательный этап не был успешно завершён.

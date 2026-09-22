@@ -4,7 +4,7 @@
     "name": "[Positive] - Успешный анализ требований и создание Requirement Review артефакта",
     "input": {
       "source": "confluence",
-      "page_id": 458754
+      "page_id": 6914059
     },
     "expected_properties": [
       "Sub-Агент строго следует своей инструкции Requirement-Agent",
@@ -30,7 +30,7 @@
     "name": "[Positive] - Успешная декомпозиция требований и проектирование задач на основании артефакта Requirement-Review и создание Jira-Tasks артефакта",
     "input": {
       "source": "confluence",
-      "page_id": 458754
+      "page_id": 6914059
     },
     "expected_properties": [
       "Sub-Агент строго следует своей инструкции Task-Agent",
@@ -57,7 +57,7 @@
     "name": "[Positive] - Успешное проектирование тестовой модели на основании артефакта Jira-Tasks и структуры спроектированных задач, а также создание Test-Model артефакта.",
     "input": {
       "source": "confluence",
-      "page_id": 458754
+      "page_id": 6914059
       },
     "expected_properties": [
       "Sub-Агент строго следует своей инструкции Test-Agent.",
@@ -87,7 +87,7 @@
     "name": "[Positive] - Успешное прохождение Workflow всего мульти-агента.",
     "input": {
       "source": "confluence",
-      "page_id": 458754
+      "page_id": 6914059
     },
     "expected_properties": [
       "Primary-Агент: Строго следует своей инструкции QA-Orchestrator.",
